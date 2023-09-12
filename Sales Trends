@@ -1,0 +1,50 @@
+---Sales trend over the months
+
+SELECT 
+    FORMAT_DATE('%Y-%m', Date) AS Month,
+    SUM(Price * ABS(Quantity)) AS TotalSales
+FROM `transaction.E-Commerce`
+GROUP BY Month
+ORDER BY Month;
+
+
+---Most Frequently Purchased Products
+SELECT 
+    ProductNo,
+    COUNT(*) AS PurchaseCount
+FROM `transaction.E-Commerce`
+GROUP BY ProductNo
+ORDER BY PurchaseCount DESC
+LIMIT 10;
+
+
+---Products the Customer Purchase in Each Transaction
+SELECT 
+    CustomerNo,
+    TransactionNo,
+    SUM(ABS(Quantity)) AS ProductCount
+FROM `transaction.E-Commerce`
+GROUP BY CustomerNo, TransactionNo
+ORDER BY CustomerNo, TransactionNo;
+
+
+---Most Profitable Segment Customers
+SELECT 
+    Country,
+    SUM(Price * ABS(Quantity)) AS TotalSales
+FROM `transaction.E-Commerce`
+GROUP BY Country
+ORDER BY TotalSales DESC
+
+
+---Top 10 products in customer purchases
+SELECT
+  ProductNo,
+  SUM(quantity) as total_quantity
+FROM
+  `transaction.E-Commerce`
+GROUP BY
+  ProductNo
+ORDER BY
+  total_quantity DESC
+LIMIT 10;
